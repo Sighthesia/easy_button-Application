@@ -1,7 +1,7 @@
 /** ***************************************************************************
  * @File Name: ebtn_custom_config.c
  * @brief 自定义按键参数配置文件及按键定义
- * @credit : bowenstudy / easy_button https://github.com/bowenstudy/easy_button
+ * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.0.0
  * @Creat Date : 2025-05-10

@@ -2,7 +2,7 @@
  * @File Name: ebtn_custom_hal.c
  * @brief ebtn应用的抽象硬件操作回调函数具体实现
  * 在首次移植到特定平台后无需再更改
- * @credit : bowenstudy / easy_button https://github.com/bowenstudy/easy_button
+ * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.0.0
  * @Creat Date : 2025-05-06

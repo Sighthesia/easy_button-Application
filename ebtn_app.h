@@ -5,7 +5,7 @@
  * ebtn_APP_Key_INIT()：初始化函数，ebtn_APP_Key_Process()：处理函数
  * @note 为了实现多平台适配，本应用层的实现注入了硬件抽象回调函数，需要依赖其他文件一同使用
  * @ref ebtn_custom_hal.c/h
- * @credit : bowenstudy / easy_button https://github.com/bobwenstudy/easy_button
+ * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.2.0
  * @Creat Date : 2025-03-01

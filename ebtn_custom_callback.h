@@ -1,7 +1,7 @@
 /** ***************************************************************************
  * @File Name: ebtn_custom_callback.h
  * @brief 自定义按键状态检测和事件处理函数
- * @credit : bowenstudy / easy_button https://github.com/bobwenstudy/easy_button
+ * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.0.0
  * @Creat Date : 2025-05-16
