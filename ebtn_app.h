@@ -1,12 +1,12 @@
 /** ***************************************************************************
  * @File Name: ebtn_app.c
- * @brief 基于easy_button库的事件回调按键处理应用层实现
- * 在此处修改按键触发事件
- * @note 为了实现多平台适配，本应用层的实现注入了硬件抽象相关回调函数ebtn_custom_config。同时需要依赖配置文件ebtn_Custom_Config.c/h
- * @note 由于直接使用了事件回调进行按键检测，层级间仍然存在一定耦合，按键触发事件仍需在此应用层文件实现
+ * @brief 基于easy_button库的应用层实现
+ * 带“APP”的函数为可外部调用的应用函数，其中重要函数有：
+ * ebtn_APP_Key_INIT()：初始化函数，ebtn_APP_Key_Process()：处理函数
+ * @note 为了实现多平台适配，本应用层的实现注入了硬件抽象回调函数，需要依赖其他文件一同使用
  * @ref ebtn_custom_hal.c/h
  * @credit : bowenstudy / easy_button https://github.com/bobwenstudy/easy_button
- * @Author : Sighthesia
+ * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.2.0
  * @Creat Date : 2025-03-01
  * ----------------------------------------------------------------------------
@@ -23,6 +23,9 @@
 #include "ebtn_custom_callback.h"
 #include "ebtn_custom_hal.h"
 #include "ebtn_custom_config.h"
+
+void ebtn_APP_Key_INIT(void);
+void ebtn_APP_Key_Process(void);
 
 uint8_t ebtn_APP_Is_Key_Active(uint16_t key_id);
 uint8_t ebtn_APP_Is_Any_Key_In_Process(void);

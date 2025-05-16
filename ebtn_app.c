@@ -1,12 +1,12 @@
 /** ***************************************************************************
  * @File Name: ebtn_app.c
- * @brief 基于easy_button库的事件回调按键处理应用层实现
- * 在此处修改按键触发事件
- * @note 为了实现多平台适配，本应用层的实现注入了硬件抽象相关回调函数ebtn_customebtn_custom_config。同时需要依赖配置文件ebtn_Custom_Config.c/h
- * @note 由于直接使用了事件回调进行按键检测，层级间仍然存在一定耦合，按键触发事件仍需在此应用层文件实现
+ * @brief 基于easy_button库的应用层实现
+ * 带“APP”的函数为可外部调用的应用函数，其中重要函数有：
+ * ebtn_APP_Key_INIT()：初始化函数，ebtn_APP_Key_Process()：处理函数
+ * @note 为了实现多平台适配，本应用层的实现注入了硬件抽象回调函数，需要依赖其他文件一同使用
  * @ref ebtn_custom_hal.c/h
  * @credit : bowenstudy / easy_button https://github.com/bobwenstudy/easy_button
- * @Author : Sighthesia
+ * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
  * @Version : 1.2.0
  * @Creat Date : 2025-03-01
  * ----------------------------------------------------------------------------
@@ -20,8 +20,8 @@
 /* -------------------------------- 初始化和处理函数 -------------------------------- */
 
 /** ***************************************************************************
- * @brief easy_button初始化
- * @note  在主函数中调用
+ * @brief easy_button初始化,在主函数中调用
+ * @note  如果使用组合键，则需要在ebtn_init之后调用ebtn_combo_btn_add_btn添加组合键
  */
 void ebtn_APP_Key_INIT(void)
 {
@@ -31,25 +31,29 @@ void ebtn_APP_Key_INIT(void)
               ebtn_Get_State, ebtn_Event_Handler);
 
     /* ---------------------------- 此处向组合键结构体数组静态添加按键 --------------------------- */
-    // 结构体数组索引位与配置中组合键结构体数组中对应的组合键ID枚举值一致
-    ebtn_combo_btn_add_btn(&btn_combo_array[0], KEY_1);
-    ebtn_combo_btn_add_btn(&btn_combo_array[0], KEY_2);
+    // 结构体数组索引值与ebtn_custom_config.c中组合键结构体数组btn_combo_array中的索引值一致
+    // 示例：四个组合键
+    // 为组合键1添加按键KEY_1和KEY_2
+    // ebtn_combo_btn_add_btn(&btn_combo_array[0], KEY_1);
+    // ebtn_combo_btn_add_btn(&btn_combo_array[0], KEY_2);
 
-    ebtn_combo_btn_add_btn(&btn_combo_array[1], KEY_3);
-    ebtn_combo_btn_add_btn(&btn_combo_array[1], KEY_4);
+    // // 为组合键2添加按键KEY_3和KEY_4
+    // ebtn_combo_btn_add_btn(&btn_combo_array[1], KEY_3);
+    // ebtn_combo_btn_add_btn(&btn_combo_array[1], KEY_4);
 
-    ebtn_combo_btn_add_btn(&btn_combo_array[2], KEY_1);
-    ebtn_combo_btn_add_btn(&btn_combo_array[2], KEY_3);
+    // // 为组合键3添加按键KEY_1和KEY_3
+    // ebtn_combo_btn_add_btn(&btn_combo_array[2], KEY_1);
+    // ebtn_combo_btn_add_btn(&btn_combo_array[2], KEY_3);
 
-    ebtn_combo_btn_add_btn(&btn_combo_array[3], KEY_2);
-    ebtn_combo_btn_add_btn(&btn_combo_array[3], KEY_4);
+    // // 为组合键4添加按键KEY_2和KEY_4
+    // ebtn_combo_btn_add_btn(&btn_combo_array[3], KEY_2);
+    // ebtn_combo_btn_add_btn(&btn_combo_array[3], KEY_4);
 }
 
 /* --------------------------------- 自定义配置部分结束 -------------------------------- */
 
 /** ***************************************************************************
- * @brief  处理按键事件
- * @note  定期调用，建议以20ms为周期
+ * @brief 处理按键事件，需要定期调用，建议以20ms为周期执行一次
  * @note  Tick时基为1ms
  */
 void ebtn_APP_Key_Process(void)
