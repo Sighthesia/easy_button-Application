@@ -67,7 +67,7 @@ easy_button_app/
 **Goal:** Initialize and periodically process button states.
 
 - In your main function, call `ebtn_APP_Key_INIT()` during system initialization to initialize the button module.
-- Periodically call `ebtn_APP_Key_Process()` in your main loop or timer interrupt (recommended every 20ms).
+- Periodically call `ebtn_APP_Key_Process()` in your main loop or timer interrupt (recommended every 5~20ms).
 - To query button status, use the following helper functions:
   - `ebtn_APP_Is_Key_Active(KEY_X)`: Checks if a button is currently active.
   - `ebtn_APP_Get_Key_State(KEY_X)`: Gets the current state of a button.
