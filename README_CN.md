@@ -1,4 +1,4 @@
-[中文](#README_CN.md) [English](#README.md)
+[中文](README_CN.md) [English](README.md)
 
 # 📌简介
 一个基于 [easy_button](https://github.com/bowenstudy/easy_button ) （一个功能强大的嵌入式按键管理库）实现的按键检测基础应用示例。该实现采用硬件抽象设计理念，将应用层、硬件抽象层和适配层进行解耦分离，具备良好的可移植性。
