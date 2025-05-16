@@ -5,7 +5,7 @@ An basic application for key detecting of easy_button, a powerful embbed button 
 
 本指南适用于 `easy_button_app` 目录下的自定义封装文件，帮助开发者在不同硬件平台上快速完成按键驱动的移植。
 
-- **注意： **本实现没有附带easy_button官方库文件，请在[easy_button Github](https://github.com/bowenstudy/easy_button)获取最新的库文件以保证正常使用
+- **注意：** 本实现没有附带easy_button官方库文件，请在[easy_button Github](https://github.com/bowenstudy/easy_button)获取最新的库文件以保证正常使用
 
 ---
 
