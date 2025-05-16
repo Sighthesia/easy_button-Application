@@ -5,7 +5,9 @@
 
 # 🚀快速移植
 
-在不同硬件平台上快速完成按键驱动的移植。
+以下为在不同硬件平台上快速完成按键驱动移植的教程。
+
+- ✅ 已在STM32G030,STM32H750,CH32V203上测试成功
 
 > ⚠️ **注意：** 本实现未附带 `easy_button` 官方库文件，请前往 [easy_button库](https://github.com/bowenstudy/easy_button ) 获取最新版本库文件（ebtn.h，ebtn.c，bit_array.h）以确保功能正常。
 
@@ -40,7 +42,7 @@ easy_button_app/
 **目标：** 设置按键硬件参数与按键参数。
 
 - 在 `ebtn_custom_config.h` 中定义按键 ID（如 `KEY_1`, `KEY_2` 等）；
-- 在 `key_list[]` 数组中填写每个按键对应的 GPIO 引脚、端口号和有效电平（0 表示低电平触发，1 表示高电平）；
+- 在 `ebtn_custom_config.c` 的 `key_list[]` 数组中填写每个按键对应的 GPIO 引脚、端口号和有效电平（0 表示低电平触发，1 表示高电平）；
 - 根据需求修改以下参数宏定义：
   - `DEBOUNCE_TICKS`：消抖时间；
   - `LONG_PRESS_TICKS`：长按判定时间；
@@ -57,7 +59,7 @@ easy_button_app/
 
 - 在 `ebtn_custom_callback.c` 中找到 `ebtn_Event_Handler()` 函数；
 - 根据传入的按键 ID 和事件类型（如按下、释放、长按等），调用相应的处理函数；
-- 推荐将不同按键或事件的处理逻辑拆分为独立的函数，并在 `ebtn_Event_Handler` 中参考原有的 `switch(ebtn->key)` 结构，在对应按键编号的 `case` 分支中调用相应的处理函数，以提升代码的可读性和可维护性。；
+- 推荐将不同按键或事件的处理逻辑拆分为独立的函数，并在 `ebtn_Event_Handler` 中参考原有的 `switch(ebtn->key)` 结构，在对应按键编号的 `case` 分支中调用相应的处理函数，以提升代码的可读性和可维护性；
 - 可自定义事件响应逻辑，例如 UI 更新、任务调度等。
 
 ---
