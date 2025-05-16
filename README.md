@@ -8,6 +8,8 @@ This is a basic key detection application using [easy_button](https://github.com
 
 Quickly adapt this key detection module to various hardware platforms.
 
+- ✅ Already tested on STM32G030,STM32H750,CH32V203
+
 > ⚠️ **Note:** This project does not include the official `easy_button` library files. Please download the latest version (`ebtn.h`, `ebtn.c`, `bit_array.h`) from [easy_button GitHub](https://github.com/bowenstudy/easy_button ) to ensure proper functionality.
 
 ## 📁 File Structure
@@ -37,7 +39,7 @@ easy_button_app/
 **Goal:** Define hardware pin mappings and button behavior.
 
 - In `ebtn_custom_config.h`, define button IDs such as `KEY_1`, `KEY_2`, etc.
-- Fill the `key_list[]` array with each button's corresponding GPIO port, pin number, and active level (0 = low, 1 = high).
+- Fill the `key_list[]` array in `ebtn_custom_config.c` with each button's corresponding GPIO port, pin number, and active level (0 = low, 1 = high).
 - Modify the following macros according to your requirements:
   - `DEBOUNCE_TICKS`: Debounce time in ms.
   - `LONG_PRESS_TICKS`: Long press detection threshold.
