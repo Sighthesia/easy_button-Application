@@ -2,7 +2,7 @@
 
 ## 📌 Description
 
-This is a basic key detection application using [easy_button](https://github.com/bowenstudy/easy_button ), a powerful embedded button management library. The design incorporates hardware abstraction, decoupling the application layer, hardware abstraction layer (HAL), and adaptation layer to achieve high portability across different platforms.
+This is a basic key detection application using [easy_button](https://github.com/bobwenstudy/easy_button ), a powerful embedded button management library. The design incorporates hardware abstraction, decoupling the application layer, hardware abstraction layer (HAL), and adaptation layer to achieve high portability across different platforms.
 
 ## 🚀 Quick Porting Guide
 
@@ -10,7 +10,7 @@ Quickly adapt this key detection module to various hardware platforms.
 
 - ✅ Already tested on STM32G030,STM32H750,CH32V203
 
-> ⚠️ **Note:** This project does not include the official `easy_button` library files. Please download the latest version (`ebtn.h`, `ebtn.c`, `bit_array.h`) from [easy_button GitHub](https://github.com/bowenstudy/easy_button ) to ensure proper functionality.
+> ⚠️ **Note:** This project does not include the official `easy_button` library files. Please download the latest version (`ebtn.h`, `ebtn.c`, `bit_array.h`) from [easy_button](https://github.com/bobwenstudy/easy_button ) to ensure proper functionality.
 
 ## 📁 File Structure
 ```
@@ -93,7 +93,7 @@ A: Implement your own handler functions in `ebtn_custom_callback.c`, and invoke 
 
 ## ❤ Credit
 
-- [easy_button](https://github.com/bowenstudy/easy_button )
+- [easy_button](https://github.com/bobwenstudy/easy_button )
 
 ## 📚 References
 
