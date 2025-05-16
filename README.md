@@ -1,99 +1,102 @@
-# easy_button-Application
-An basic application for key detecting of easy_button, a powerful embbed button management library
+[中文](#README_CN.md) [English](#README.md)
 
-# `easy_button_app` 快速移植指南
+## 📌 Description
 
-本指南适用于 `easy_button_app` 目录下的自定义封装文件，帮助开发者在不同硬件平台上快速完成按键驱动的移植。
+This is a basic key detection application implemented using **easy_button**, a powerful embedded button management library. The design incorporates hardware abstraction, decoupling the application layer, hardware abstraction layer (HAL), and adaptation layer to achieve high portability across different platforms.
 
-> ⚠️ **注意：** 本实现未附带 `easy_button` 官方库文件，请前往 [easy_button](https://github.com/bowenstudy/easy_button ) 获取最新版本库文件（ebtn.h，ebtn.c，bit_array.h）以确保功能正常。
+## 🚀 Quick Porting Guide
 
----
+Quickly adapt this key detection module to various hardware platforms.
 
-## 📁 文件结构说明
-'''
+> ⚠️ **Note:** This project does not include the official `easy_button` library files. Please download the latest version (`ebtn.h`, `ebtn.c`, `bit_array.h`) from [easy_button GitHub](https://github.com/bowenstudy/easy_button ) to ensure proper functionality.
+
+## 📁 File Structure
+```
 easy_button_app/
-├── ebtn_app.c/h // 应用层接口与初始化
-├── ebtn_custom_hal.c/h // 硬件抽象层适配
-├── ebtn_custom_config.c/h // 按键参数与引脚配置
-├── ebtn_custom_callback.c/h // 按键事件回调处理
-'''
+├── ebtn_app.c/h // Application layer interface and initialization
+├── ebtn_custom_hal.c/h // Hardware Abstraction Layer (HAL)
+├── ebtn_custom_config.c/h // Button pin configuration and parameters
+├── ebtn_custom_callback.c/h // Callback handler for button events
+```
+
+## 🧭 Porting Steps
+
+### 1. Adapt the Hardware Abstraction Layer (HAL)
+
+**Goal:** Implement platform-specific low-level functions.
+
+- Open `ebtn_custom_hal.h` and include the appropriate GPIO and system clock header files for your platform (e.g., `stm32f1xx_hal.h` for STM32).
+- In `ebtn_custom_hal.c`, implement the following two core callback functions:
+  - `ebtn_HAL_Read_Pin()`: Reads the current logic level of the specified pin.
+  - `ebtn_HAL_Get_Tick()`: Returns the current system tick count in milliseconds.
 
 ---
 
-## 🧭 移植步骤详解
+### 2. Configure Button Settings (Adaptation Layer)
 
-### 1. 适配硬件抽象层（HAL 层）
+**Goal:** Define hardware pin mappings and button behavior.
 
-**目标：** 实现平台相关的底层接口。
-
-- 打开 `ebtn_custom_hal.h`，引入对应平台的 GPIO 和系统时钟头文件（如 STM32 的 `stm32f1xx_hal.h`）。
-- 在 'ebtn_custom_hal.c' 用当前平台的函数实现两个核心回调函数：
-  - `ebtn_HAL_Read_Pin()`：读取指定引脚电平状态；
-  - `ebtn_HAL_Get_Tick()`：获取当前系统时间戳（单位为1毫秒）；
-
----
-
-### 2. 配置按键信息（适配层）
-
-**目标：** 设置按键硬件参数与按键参数。
-
-- 在 `ebtn_custom_config.h` 中定义按键 ID（如 `KEY_1`, `KEY_2` 等）；
-- 在 `key_list[]` 数组中填写每个按键对应的 GPIO 引脚、端口号和有效电平（0 表示低电平触发，1 表示高电平）；
-- 根据需求修改以下参数宏定义：
-  - `DEBOUNCE_TICKS`：消抖时间；
-  - `LONG_PRESS_TICKS`：长按判定时间；
-  - `REPEAT_TICKS`：连击间隔；
-  - 其他参数...
-- 若使用组合键，在 `btn_combo_array[]` 中添加组合键定义；
-- 将单个按键对象加入 `btn_array[]`。
+- In `ebtn_custom_config.h`, define button IDs such as `KEY_1`, `KEY_2`, etc.
+- Fill the `key_list[]` array with each button's corresponding GPIO port, pin number, and active level (0 = low, 1 = high).
+- Modify the following macros according to your requirements:
+  - `DEBOUNCE_TICKS`: Debounce time in ms.
+  - `LONG_PRESS_TICKS`: Long press detection threshold.
+  - `REPEAT_TICKS`: Repeat interval for auto-repeat keys.
+  - Other optional settings...
+- If using combo keys, add them to `btn_combo_array[]`, and call `ebtn_combo_btn_add_btn()` inside `ebtn_APP_Key_INIT()` in `ebtn_app.c` to bind individual buttons to the combo.
+- Add single buttons to `btn_array[]`.
 
 ---
 
-### 3. 实现按键事件回调（应用层）
+### 3. Implement Event Callbacks (Application Layer)
 
-**目标：** 定义按键触发后的业务逻辑。
+**Goal:** Define custom logic for handling button events.
 
-- 在 `ebtn_custom_callback.c` 中找到 `ebtn_Event_Handler()` 函数；
-- 根据传入的按键 ID 和事件类型（如按下、释放、长按等），调用相应的处理函数；
-- 推荐将不同按键或事件拆分为独立函数，再在ebtn_Event_Handler中仿照原本的switch(ebt-＞key)逻辑，在对应按键编号的case下执行自定义的独立处理函数，提高代码可维护性；
-- 可自定义事件响应逻辑，例如 UI 更新、任务调度等。
-
----
-
-### 4. 调用按键处理函数（应用层）
-
-**目标：** 初始化并周期性处理按键事件。
-
-- 在主函数初始化阶段调用 `ebtn_APP_Key_INIT()` 完成按键模块初始化；
-- 在主循环中或定时器中断中定期调用 `ebtn_APP_Key_Process()`（建议每 20ms 调用一次）；
-- 如需查询按键状态，可调用辅助函数：
-  - `ebtn_APP_Is_Key_Active(KEY_X)`：判断按键是否处于激活状态；
-  - `ebtn_APP_Get_Key_State(KEY_X)`：获取按键当前状态；
-  - `ebtn_APP_Get_Key_Press_Time(KEY_X)`：获取按键按下时间；
+- Locate the `ebtn_Event_Handler()` function in `ebtn_custom_callback.c`.
+- Based on the incoming button ID and event type (e.g., pressed, released, long press), invoke the corresponding handler function.
+- It is recommended to split the logic for different buttons or events into separate functions.
+- Refer to the original `switch(ebtn->key)` structure inside `ebtn_Event_Handler()` and call the respective handler within each `case` block for better code readability and maintainability.
+- You may implement custom responses like UI updates or task scheduling.
 
 ---
 
-## ❓ 常见问题解答
+### 4. Call Key Processing Functions (Application Layer)
 
-### Q: 如何添加新按键？
+**Goal:** Initialize and periodically process button states.
 
-A: 在 `ebtn_custom_config.h` 中新增 `KEY_X` 枚举值，并在 `key_list[]`、`btn_array[]` 中添加相应配置项即可。
-
-### Q: 如何适配不同的 MCU 平台？
-
-A: 只需修改 `ebtn_custom_hal.c/h` 文件中的底层函数实现，其余代码无需改动。
-
-### Q: 如何自定义按键事件处理？
-
-A: 在 `ebtn_custom_callback.c` 中编写具体处理函数，并在 `ebtn_Event_Handler()` 中根据按键 ID 和事件类型调用这些函数。
+- In your main function, call `ebtn_APP_Key_INIT()` during system initialization to initialize the button module.
+- Periodically call `ebtn_APP_Key_Process()` in your main loop or timer interrupt (recommended every 20ms).
+- To query button status, use the following helper functions:
+  - `ebtn_APP_Is_Key_Active(KEY_X)`: Checks if a button is currently active.
+  - `ebtn_APP_Get_Key_State(KEY_X)`: Gets the current state of a button.
+  - `ebtn_APP_Get_Key_Press_Time(KEY_X)`: Gets how long a button has been pressed.
 
 ---
 
-## 📚 参考资料
+## ❓ FAQ
+
+### Q: How to add a new button?
+
+A: Add a new `KEY_X` enum value in `ebtn_custom_config.h`, then update `key_list[]` and `btn_array[]` in `ebtn_custom_config.c` accordingly.
+
+### Q: How to port to a different MCU platform?
+
+A: Simply modify the implementation of low-level functions (e.g., `GPIO_ReadPin`, `SysTick`) in `ebtn_custom_hal.c/h`. No changes are required in other files.
+
+### Q: How to customize event handling?
+
+A: Implement your own handler functions in `ebtn_custom_callback.c`, and invoke them inside `ebtn_Event_Handler()` based on the button ID and event type.
+
+---
+
+## ❤ Credit
 
 - [easy_button](https://github.com/bowenstudy/easy_button )
-- 各 `.c/.h` 文件顶部注释提供详细使用示例
+
+## 📚 References
+
+- Detailed usage examples are provided in comments at the top of each `.c/.h` file.
 
 ---
 
-如有疑问或建议，欢迎提交 Issue 或 Pull Request！
+If you have any questions or suggestions, feel free to open an Issue or submit a Pull Request!
