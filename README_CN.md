@@ -69,7 +69,7 @@ easy_button_app/
 **目标：** 初始化并周期性处理按键事件。
 
 - 在主函数初始化阶段调用 `ebtn_APP_Key_INIT()` 完成按键模块初始化；
-- 在主循环中或定时器中断中定期调用 `ebtn_APP_Key_Process()`（建议每 20ms 调用一次）；
+- 在主循环中或定时器中断中定期调用 `ebtn_APP_Key_Process()`（建议每 5~20ms 调用一次）；
 - 如需查询按键状态，可调用辅助函数：
   - `ebtn_APP_Is_Key_Active(KEY_X)`：判断按键是否处于激活状态；
   - `ebtn_APP_Get_Key_State(KEY_X)`：获取按键当前状态；
