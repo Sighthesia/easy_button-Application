@@ -1,7 +1,7 @@
 [中文](README_CN.md) [English](README.md)
 
 # 📌简介
-一个基于 [easy_button](https://github.com/bowenstudy/easy_button ) （一个功能强大的嵌入式按键管理库）实现的按键检测基础应用示例。该实现采用硬件抽象设计理念，将应用层、硬件抽象层和适配层进行解耦分离，具备良好的可移植性。
+一个基于 [easy_button](https://github.com/bobwenstudy/easy_button ) （一个功能强大的嵌入式按键管理库）实现的按键检测基础应用示例。该实现采用硬件抽象设计理念，将应用层、硬件抽象层和适配层进行解耦分离，具备良好的可移植性。
 
 # 🚀快速移植
 
@@ -9,7 +9,7 @@
 
 - ✅ 已在STM32G030,STM32H750,CH32V203上测试成功
 
-> ⚠️ **注意：** 本实现未附带 `easy_button` 官方库文件，请前往 [easy_button库](https://github.com/bowenstudy/easy_button ) 获取最新版本库文件（ebtn.h，ebtn.c，bit_array.h）以确保功能正常。
+> ⚠️ **注意：** 本实现未附带 `easy_button` 官方库文件，请前往 [easy_button库](https://github.com/bobwenstudy/easy_button ) 获取最新版本库文件（ebtn.h，ebtn.c，bit_array.h）以确保功能正常。
 
 ---
 
@@ -95,7 +95,7 @@ A: 在 `ebtn_custom_callback.c` 中编写具体处理函数，并在 `ebtn_Event
 
 ## ❤ Credit
 
-- [easy_button](https://github.com/bowenstudy/easy_button )
+- [easy_button](https://github.com/bobwenstudy/easy_button )
 
 ## 📚参考
 
