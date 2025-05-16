@@ -2,7 +2,7 @@
 
 ## 📌 Description
 
-This is a basic key detection application implemented using **easy_button**, a powerful embedded button management library. The design incorporates hardware abstraction, decoupling the application layer, hardware abstraction layer (HAL), and adaptation layer to achieve high portability across different platforms.
+This is a basic key detection application using [easy_button](https://github.com/bowenstudy/easy_button ), a powerful embedded button management library. The design incorporates hardware abstraction, decoupling the application layer, hardware abstraction layer (HAL), and adaptation layer to achieve high portability across different platforms.
 
 ## 🚀 Quick Porting Guide
 
