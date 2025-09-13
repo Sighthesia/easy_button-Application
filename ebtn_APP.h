@@ -26,7 +26,16 @@
 #include "ebtn_Event_Callback.h"
 #include "ebtn_HAL_Config.h"
 
-void ebtn_APP_Keys_Init(void);
-void ebtn_APP_Process(void);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+    void ebtn_APP_Keys_Init(void);
+    void ebtn_APP_Process(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* EBTN_APP_H */

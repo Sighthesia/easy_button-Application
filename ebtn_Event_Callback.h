@@ -21,11 +21,18 @@
 
 /* -------------------------- 此处添加所需的按键触发事件的函数声明的头文件 ------------------------- */
 
-#include "shop_system.h"
-
 /* -------------------------------- 自定义配置部分结束 ------------------------------- */
 
-uint8_t Get_Key_State(struct ebtn_btn *btn);
-void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt);
-
+#ifdef __cplusplus
+extern "C"
+{
 #endif
+
+    uint8_t Get_Key_State(struct ebtn_btn *btn);
+    void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* EBTN_CUSTOM_CALLBACK_H */

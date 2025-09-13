@@ -69,8 +69,6 @@ void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
         /* ---------------------------------- 按下按键时 --------------------------------- */
         if (evt == EBTN_EVT_ONPRESS)
         {
-            // B1短按：界面切换
-            Shop_System_Switch_Interface();
         }
         /* ---------------------------------- 松开按键时 --------------------------------- */
         else if (evt == EBTN_EVT_ONRELEASE)
@@ -106,8 +104,6 @@ void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
         /* ---------------------------------- 按下按键时 --------------------------------- */
         if (evt == EBTN_EVT_ONPRESS)
         {
-            // B2短按：商品X操作
-            Shop_System_Product_X_Action();
         }
         /* ---------------------------------- 松开按键时 --------------------------------- */
         else if (evt == EBTN_EVT_ONRELEASE)
@@ -144,8 +140,6 @@ void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
         /* ---------------------------------- 按下按键时 --------------------------------- */
         if (evt == EBTN_EVT_ONPRESS)
         {
-            // B3短按：商品Y操作
-            Shop_System_Product_Y_Action();
         }
         /* ---------------------------------- 松开按键时 --------------------------------- */
         else if (evt == EBTN_EVT_ONRELEASE)
@@ -193,8 +187,6 @@ void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
             /* ----------------------------------- 单击时 ---------------------------------- */
             if (btn->click_cnt == 1)
             {
-                // B4短按：确认购买
-                Shop_System_Confirm_Purchase();
             }
             /* ----------------------------------- 双击时 ---------------------------------- */
             else if (btn->click_cnt == 2)
@@ -211,8 +203,6 @@ void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
             /* ------------------------------- 长按计数到达指定值时 ------------------------------- */
             if (btn->keepalive_cnt == 1)
             {
-                // B4长按：补充库存
-                Shop_System_Restock();
             }
         }
         break;

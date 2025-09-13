@@ -51,6 +51,15 @@ typedef struct
 
 /* -------------------------------- 自定义配置部分结束 ------------------------------- */
 
-extern ebtn_custom_hal_t ebtn_HAL_Config; // ebtn适配层回调函数结构声明
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+    extern ebtn_custom_hal_t ebtn_HAL_Config; // ebtn适配层回调函数结构声明
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* EBTN_CUSTOM_HAL_H */
