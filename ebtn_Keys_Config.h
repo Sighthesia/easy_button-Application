@@ -33,7 +33,7 @@ extern "C"
 #define CLICK_AND_PRESS_MIN_TIME 20  // 触发最短时间（小于该值不触发 Click/Press）
 #define CLICK_AND_PRESS_MAX_TIME 200 // 短按最长时间（超过则触发 Press；0xFFFF=不检查最大值）
 #define MULTI_CLICK_MAX_TIME 200     // 连击间隔超时（两个按键之间的最大间隔）
-#define KEEPALIVE_TIME_PERIOD 600    // 长按周期（每周期增加 keepalive_cnt）
+#define KEEPALIVE_TIME_PERIOD 500    // 长按周期（每周期增加 keepalive_cnt）
 #define MAX_CLICK_COUNT 3            // 最大连续短击次数（0=不检查连击）
 
     /* -------------------------------- 此处修改按键ID定义 -------------------------------- */
