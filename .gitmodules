@@ -1,0 +1,3 @@
+[submodule "easy_button"]
+	path = easy_button
+	url = https://github.com/bobwenstudy/easy_button
