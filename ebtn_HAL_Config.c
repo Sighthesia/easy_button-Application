@@ -25,8 +25,7 @@
  */
 uint8_t ebtn_HAL_Read_Pin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
 {
-    // return (uint8_t)HAL_GPIO_ReadPin(GPIOx, GPIO_Pin); // 示例：STM32HAL库；强制转换uint8_t类型，确保通用性
-    return (uint8_t)HAL_GPIO_ReadPin(GPIOx, GPIO_Pin); // STM32HAL库实现
+    return (uint8_t)HAL_GPIO_ReadPin(GPIOx, GPIO_Pin); // 示例：STM32HAL库；强制转换uint8_t类型，确保通用性
 }
 
 /** ***************************************************************************
@@ -36,8 +35,7 @@ uint8_t ebtn_HAL_Read_Pin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
  */
 uint32_t ebtn_HAL_Get_Tick(void)
 {
-    // return HAL_GetTick(); // 示例：STM32HAL库
-    return HAL_GetTick(); // STM32HAL库实现
+    return HAL_GetTick(); // 示例：STM32HAL库
 }
 
 /* -------------------------------- 自定义配置部分结束 ------------------------------- */

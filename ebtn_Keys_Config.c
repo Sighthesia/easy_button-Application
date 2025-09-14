@@ -41,6 +41,7 @@ ebtn_btn_param_t buttons_parameters = EBTN_PARAMS_INIT(
  * @note 此处填入所需的按键ID及其GPIO信息和触发时电平
  */
 key_config_t keys_config_list[] = {
+    // 示例：四个按键
     // 按键ID，GPIO端口，    GPIO引脚， 触发电平
     {KEY_1, KEY_1_GPIO_Port, KEY_1_Pin, EBTN_ACTIVE_LOW}, // B1按键 PC4，低电平触发
     {KEY_2, KEY_2_GPIO_Port, KEY_2_Pin, EBTN_ACTIVE_LOW}, // B2按键 PC5，低电平触发
@@ -55,11 +56,12 @@ key_config_t keys_config_list[] = {
  * @note 支持自适应长度的按键数组，无固定长度限制
  */
 const combo_config_t combo_keys_config_list[] = {
+    // 示例：四个组合键
     //         组合键ID,    按键1, 按键2, ..., 按键N
     COMBO_KEYS(COMBO_KEY_1, KEY_1, KEY_2),
-    // COMBO_KEYS(COMBO_KEY_2, KEY_2, KEY_3),
-    // COMBO_KEYS(COMBO_KEY_3, KEY_1, KEY_2, KEY_3),
-    // COMBO_KEYS(COMBO_KEY_4, KEY_1, KEY_2, KEY_3, KEY_4),
+    COMBO_KEYS(COMBO_KEY_2, KEY_2, KEY_3),
+    COMBO_KEYS(COMBO_KEY_3, KEY_1, KEY_2, KEY_3),
+    COMBO_KEYS(COMBO_KEY_4, KEY_1, KEY_2, KEY_3, KEY_4),
 };
 
 /* -------------------------------- 此处修改可选参数 -------------------------------- */

@@ -43,6 +43,7 @@ extern "C"
      */
     typedef enum
     {
+        // 示例：四个按键
         KEY_1 = 0,
         KEY_2,
         KEY_3,
@@ -58,6 +59,7 @@ extern "C"
      */
     typedef enum
     {
+        // 示例：四个组合键
         COMBO_KEY_1 = COMBO_KEY_BASE, // 组合键基值，避免与单键 ID 空间重叠
         COMBO_KEY_2,
         COMBO_KEY_3,
