@@ -367,6 +367,8 @@ If you have any questions or suggestions, feel free to open an [Issue](https://g
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+**Third-party Licenses**: The [easy_button core library](https://github.com/bobwenstudy/easy_button) used in this project is licensed under the Apache-2.0 License.
+
 ---
 
 🤖 ☝️🤓 **Developed with GitHub Copilot assistance**

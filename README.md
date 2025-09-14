@@ -367,6 +367,8 @@ if (!ebtn_is_in_process())
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
+**第三方许可证**：本项目使用的 [easy_button 核心库](https://github.com/bobwenstudy/easy_button) 采用 Apache-2.0 许可证。
+
 ---
 
 🤖 ☝️🤓 **由 GitHub Copilot 辅助开发**
