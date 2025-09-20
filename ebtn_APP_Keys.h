@@ -1,9 +1,9 @@
 /** ***************************************************************************
- * @File Name: ebtn_Keys_Config.h
+ * @File Name: ebtn_APP_Keys.h
  * @brief 自定义按键参数配置文件
  * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
- * @Version : 1.0.0
+ * @Version : 1.3.0
  * @Creat Date : 2025-05-10
  * ----------------------------------------------------------------------------
  * @Modification
@@ -13,6 +13,7 @@
  *   - 修正组合键数组大小：引入 `COMBO_KEYS_COUNT=(MAX_COMBO_KEY-COMBO_KEY_BASE)`
  *   - 增加类型安全的内联转换函数：`combo_id_to_index` / `index_to_combo_id`
  *   - 注释精简与开源风格统一，强调配置思路与用法
+ *   - 依赖 HAL 的平台类型由 `ebtn_APP_HAL.h` 提供（HAL 头默认包含 `main.h`），避免本头直接包含平台头
  * @Modifi Date : 2025-09-14
  */
 #ifndef EBTN_KEYS_CONFIG_H
@@ -23,7 +24,10 @@ extern "C"
 {
 #endif
 
-#include "ebtn_HAL_Config.h"
+#include "ebtn.h"
+#include "stdint.h"
+
+typedef struct GPIO_TypeDef GPIO_TypeDef;
 
 /* ------------------------------- 此处修改按键参数定义 ------------------------------- */
 

@@ -1,16 +1,16 @@
 /** ***************************************************************************
- * @File Name: ebtn_HAL_Config.h
+ * @File Name: ebtn_APP_HAL.h
  * @brief ebtn应用的抽象硬件操作回调函数声明
  * 在首次移植到特定平台后无需再更改
  * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
- * @Version : 1.0.0
+ * @Version : 1.3.0
  * @Creat Date : 2025-05-06
  * ----------------------------------------------------------------------------
  * @Modification
  * @Author : Sighthesia
  * @Changes :
- *   - 明确平台依赖，保留对 `main.h` 的包含以确保 `GPIO_TypeDef` 等类型一致
+ *   - 明确平台依赖，HAL 头现在默认包含 `main.h`（可通过 `EBTN_PLATFORM_HEADER` 宏覆盖）以确保 `GPIO_TypeDef` 等类型一致
  *   - 注释精简与对齐开源风格，突出接口语义与可移植性
  * @Modifi Date : 2025-09-14
  */
@@ -20,11 +20,10 @@
 #include "ebtn.h"
 #include "stdint.h"
 
-/* ------------------------------ 此处包含单片机平台的头文件 ----------------------------- */
+/* ------------------------------- 此处修改平台头文件包含 ------------------------------ */
 
-// 包含单片机平台的声明了GPIO和SysTick相关的头文件
-// #include "stm32f1xx.h" // 示例：STM32F1系列单片机的头文件
-#include "main.h" // 包含main.h，通常包含了单片机平台的所有必要定义
+// 根据实际平台修改此处的头文件包含，以获得 GPIO_TypeDef 和函数定义，通常包含 "main.h" 即可
+#include "main.h"
 
 /* -------------------------- 此处修改硬件回调函数自定义声明（如有需求） ------------------------- */
 
@@ -56,7 +55,7 @@ extern "C"
 {
 #endif
 
-    extern ebtn_custom_hal_t ebtn_HAL_Config; // ebtn适配层回调函数结构声明
+    extern ebtn_custom_hal_t ebtn_APP_HAL; // ebtn适配层回调函数结构声明
 
 #ifdef __cplusplus
 }

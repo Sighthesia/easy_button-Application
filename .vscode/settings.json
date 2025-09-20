@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.toml": "toml",
+        "ebtn_event_callback.h": "c",
+        "ebtn_keys_config.h": "c",
+        "ebtn_app_hal.h": "c"
+    }
+}

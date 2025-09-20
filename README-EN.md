@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-STM32%20%7C%20CH32V-green.svg)](README.md)
-[![Version](https://img.shields.io/badge/Version-1.2.0-orange.svg)](README.md)
+[![Version](https://img.shields.io/badge/Version-1.3.0-orange.svg)](README.md)
 
 📌 **Description**
 
@@ -55,9 +55,9 @@ git submodule update --remote easy_button
 ```
 easy_button-Application/
 ├── ebtn_APP.c/h                    # Application layer interface and initialization
-├── ebtn_HAL_Config.c/h             # Hardware Abstraction Layer (HAL)
-├── ebtn_Keys_Config.c/h            # Button pin configuration and parameters
-├── ebtn_Event_Callback.c/h         # Button event callback handlers
+├── ebtn_APP_HAL.c/h             # Hardware Abstraction Layer (HAL)
+├── ebtn_APP_Keys.c/h            # Button pin configuration and parameters
+├── ebtn_APP_Event.c/h         # Button event callback handlers
 └── easy_button/                    # easy_button core library submodule
     ├── ebtn/
     │   ├── ebtn.h                  # Core header file
@@ -75,20 +75,22 @@ easy_button-Application/
 **Goal**: Implement platform-specific low-level functions
 
 1. **Modify Header Includes**
+
+    Open `ebtn_APP_HAL.h` and include appropriate GPIO and system clock header files for your platform:
    
-   Open `ebtn_HAL_Config.h` and include appropriate GPIO and system clock header files for your platform:
-   
-   ```c
-   // Example: STM32F1 series
-   #include "stm32f1xx_hal.h"
+    ```c
+    // Example: STM32F1 series
+    #include "stm32f1xx_hal.h"
    
    // Example: CH32V series  
    #include "ch32v20x.h"
    ```
 
+   - By default, `"mian.h"` is included, which usually contains platform-related definitions such as `GPIO_TypeDef`. If an error still occurs, include the specific file.
+
 2. **Implement Core Callback Functions**
    
-   In `ebtn_HAL_Config.c`, implement two key callback functions:
+   In `ebtn_APP_HAL.c`, implement two key callback functions:
    
    ```c
    // Read logic level of specified pin
@@ -110,7 +112,7 @@ easy_button-Application/
 
 1. **Define Button IDs**
    
-   In `ebtn_Keys_Config.h`, define button IDs:
+   In `ebtn_APP_Keys.h`, define button IDs:
    
    ```c
    typedef enum
@@ -126,7 +128,7 @@ easy_button-Application/
 
 2. **Configure Button Hardware Mapping**
    
-   In `ebtn_Keys_Config.c`, fill the `keys_config_list[]` array:
+   In `ebtn_APP_Keys.c`, fill the `keys_config_list[]` array:
    
    ```c
    key_config_t keys_config_list[] = {
@@ -163,10 +165,10 @@ easy_button-Application/
 
 **Goal**: Define custom handling logic for button events
 
-In `ebtn_Event_Callback.c`, find the `ebtn_Event_Callback()` function and implement corresponding handling logic based on button ID and event type:
+In `ebtn_APP_Event.c`, find the `ebtn_APP_Event()` function and implement corresponding handling logic based on button ID and event type:
 
 ```c
-void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
+void ebtn_APP_Event(struct ebtn_btn *btn, ebtn_evt_t evt)
 {
     switch (btn->key_id)
     {
@@ -288,19 +290,19 @@ int any_in_process = ebtn_is_in_process();
 ## ❓ FAQ
 
 ### Q: How to add a new button?
-A: Add a new `KEY_X` enum value in `ebtn_Keys_Config.h`, then update the `keys_config_list[]` array configuration in `ebtn_Keys_Config.c`.
+A: Add a new `KEY_X` enum value in `ebtn_APP_Keys.h`, then update the `keys_config_list[]` array configuration in `ebtn_APP_Keys.c`.
 
 ### Q: How to port to different MCU platforms?
-A: Simply modify the implementation of low-level functions (like `GPIO_ReadPin`, `SysTick`) in `ebtn_HAL_Config.c/h`. No changes required in other files.
+A: Simply modify the implementation of low-level functions (like `GPIO_ReadPin`, `SysTick`) in `ebtn_APP_HAL.c/h`. No changes required in other files.
 
 ### Q: How to customize event handling?
-A: Implement your own handler functions in `ebtn_Event_Callback.c` and call them in `ebtn_Event_Callback()` based on button ID and event type.
+A: Implement your own handler functions in `ebtn_APP_Event.c` and call them in `ebtn_APP_Event()` based on button ID and event type.
 
 ### Q: Compilation error about missing easy_button files?
 A: Ensure you have correctly retrieved the submodules. Run `git submodule update --init --recursive` to get the easy_button core library files.
 
 ### Q: How to adjust debounce time?
-A: Modify the `DEBOUNCE_TIME` macro definition in `ebtn_Keys_Config.h`, unit is milliseconds.
+A: Modify the `DEBOUNCE_TIME` macro definition in `ebtn_APP_Keys.h`, unit is milliseconds.
 
 ### Q: How to update easy_button core library to latest version?
 A: Run `git submodule update --remote easy_button` to update the submodule to the latest version.
@@ -318,7 +320,7 @@ A: Run `git submodule update --remote easy_button` to update the submodule to th
 
 ### Custom Button Parameters
 
-If certain buttons need special timing parameters, use special configuration in `ebtn_Keys_Config.c`:
+If certain buttons need special timing parameters, use special configuration in `ebtn_APP_Keys.c`:
 
 ```c
 // Define special parameters

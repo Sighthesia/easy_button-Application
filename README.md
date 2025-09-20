@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-STM32%20%7C%20CH32V-green.svg)](README.md)
-[![Version](https://img.shields.io/badge/Version-1.2.0-orange.svg)](README.md)
+[![Version](https://img.shields.io/badge/Version-1.3.0-orange.svg)](README.md)
 
 📌 **项目简介**
 
@@ -55,9 +55,9 @@ git submodule update --remote easy_button
 ```
 easy_button-Application/
 ├── ebtn_APP.c/h                    # 应用层接口和初始化
-├── ebtn_HAL_Config.c/h             # 硬件抽象层（HAL）
-├── ebtn_Keys_Config.c/h            # 按键引脚配置和参数
-├── ebtn_Event_Callback.c/h         # 按键事件回调处理
+├── ebtn_APP_HAL.c/h             # 硬件抽象层（HAL）
+├── ebtn_APP_Keys.c/h            # 按键引脚配置和参数
+├── ebtn_APP_Event.c/h         # 按键事件回调处理
 └── easy_button/                    # easy_button 核心库子模块
     ├── ebtn/
     │   ├── ebtn.h                  # 核心头文件
@@ -76,7 +76,7 @@ easy_button-Application/
 
 1. **修改头文件包含**
    
-   打开 `ebtn_HAL_Config.h`，包含适合你平台的 GPIO 和系统时钟头文件：
+   打开 `ebtn_APP_HAL.h`，包含适合你平台的 GPIO 和系统时钟头文件：
    
    ```c
    // 示例：STM32F1 系列
@@ -85,10 +85,12 @@ easy_button-Application/
    // 示例：CH32V 系列  
    #include "ch32v20x.h"
    ```
+   
+   - 默认包含 `"mian.h"`，通常包含了 `GPIO_TypeDef` 等平台相关定义，如仍报错可包含具体文件。
 
 2. **实现核心回调函数**
    
-   在 `ebtn_HAL_Config.c` 中实现两个关键回调函数：
+   在 `ebtn_APP_HAL.c` 中实现两个关键回调函数：
    
    ```c
    // 读取指定引脚的逻辑电平
@@ -110,7 +112,7 @@ easy_button-Application/
 
 1. **定义按键 ID**
    
-   在 `ebtn_Keys_Config.h` 中定义按键 ID：
+   在 `ebtn_APP_Keys.h` 中定义按键 ID：
    
    ```c
    typedef enum
@@ -126,7 +128,7 @@ easy_button-Application/
 
 2. **配置按键硬件映射**
    
-   在 `ebtn_Keys_Config.c` 中填写 `keys_config_list[]` 数组：
+   在 `ebtn_APP_Keys.c` 中填写 `keys_config_list[]` 数组：
    
    ```c
    key_config_t keys_config_list[] = {
@@ -163,10 +165,10 @@ easy_button-Application/
 
 **目标**：定义按键事件的自定义处理逻辑
 
-在 `ebtn_Event_Callback.c` 中找到 `ebtn_Event_Callback()` 函数，根据按键 ID 和事件类型实现相应的处理逻辑：
+在 `ebtn_APP_Event.c` 中找到 `ebtn_APP_Event()` 函数，根据按键 ID 和事件类型实现相应的处理逻辑：
 
 ```c
-void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
+void ebtn_APP_Event(struct ebtn_btn *btn, ebtn_evt_t evt)
 {
     switch (btn->key_id)
     {
@@ -288,19 +290,19 @@ int any_in_process = ebtn_is_in_process();
 ## ❓ 常见问题
 
 ### Q: 如何添加新按键？
-A: 在 `ebtn_Keys_Config.h` 中添加新的 `KEY_X` 枚举值，然后在 `ebtn_Keys_Config.c` 中更新 `keys_config_list[]` 数组配置。
+A: 在 `ebtn_APP_Keys.h` 中添加新的 `KEY_X` 枚举值，然后在 `ebtn_APP_Keys.c` 中更新 `keys_config_list[]` 数组配置。
 
 ### Q: 如何移植到不同的 MCU 平台？
-A: 只需修改 `ebtn_HAL_Config.c/h` 中的底层函数实现（如 `GPIO_ReadPin`、`SysTick`），其他文件无需修改。
+A: 只需修改 `ebtn_APP_HAL.c/h` 中的底层函数实现（如 `GPIO_ReadPin`、`SysTick`），其他文件无需修改。
 
 ### Q: 如何自定义事件处理？
-A: 在 `ebtn_Event_Callback.c` 中实现自己的处理函数，并在 `ebtn_Event_Callback()` 中根据按键 ID 和事件类型调用。
+A: 在 `ebtn_APP_Event.c` 中实现自己的处理函数，并在 `ebtn_APP_Event()` 中根据按键 ID 和事件类型调用。
 
 ### Q: 编译时提示找不到 easy_button 相关文件？
 A: 请确保已正确获取子模块。运行 `git submodule update --init --recursive` 来获取 easy_button 核心库文件。
 
 ### Q: 如何调整防抖时间？
-A: 修改 `ebtn_Keys_Config.h` 中的 `DEBOUNCE_TIME` 宏定义，单位为毫秒。
+A: 修改 `ebtn_APP_Keys.h` 中的 `DEBOUNCE_TIME` 宏定义，单位为毫秒。
 
 ### Q: 如何更新 easy_button 核心库到最新版本？
 A: 运行 `git submodule update --remote easy_button` 来更新子模块到最新版本。
@@ -318,7 +320,7 @@ A: 运行 `git submodule update --remote easy_button` 来更新子模块到最�
 
 ### 自定义按键参数
 
-如果某些按键需要特殊的时间参数，可以在 `ebtn_Keys_Config.c` 中使用特殊配置：
+如果某些按键需要特殊的时间参数，可以在 `ebtn_APP_Keys.c` 中使用特殊配置：
 
 ```c
 // 定义特殊参数

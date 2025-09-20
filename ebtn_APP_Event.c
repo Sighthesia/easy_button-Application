@@ -1,9 +1,9 @@
 /** ***************************************************************************
- * @File Name: ebtn_Event_Callback.c
+ * @File Name: ebtn_APP_Event.c
  * @brief 自定义按键状态检测和事件处理函数
  * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
- * @Version : 1.0.0
+ * @Version : 1.3.0
  * @Creat Date : 2025-05-16
  * ----------------------------------------------------------------------------
  * @Modification
@@ -12,9 +12,12 @@
  *   - 强化事件回调用法示例，按键/组合键分支结构清晰
  *   - 优化注释，突出 keepalive/连击等事件的典型用法
  *   - 注释统一与开源风格对齐
+ *   - 实现文件包含 `ebtn_APP_HAL.h` 与 `ebtn_APP_Keys.h`，头文件中保持最小声明以减少传递包含
  * @Modifi Date : 2025-09-14
  */
-#include "ebtn_Event_Callback.h"
+#include "ebtn_APP_Event.h"
+#include "ebtn_APP_Keys.h"
+#include "ebtn_APP_HAL.h"
 
 /* ---------------------------- 此函数中可自定义按键状态检测方式 ---------------------------- */
 
@@ -33,7 +36,7 @@ uint8_t Get_Key_State(struct ebtn_btn *btn)
     {
         if (keys_config_list[i].key_id == btn->key_id)
         {
-            uint8_t pin_state = ebtn_HAL_Config.Read_Pin(keys_config_list[i].gpio_port, keys_config_list[i].gpio_pin);
+            uint8_t pin_state = ebtn_APP_HAL.Read_Pin(keys_config_list[i].gpio_port, keys_config_list[i].gpio_pin);
             // 根据有效电平转换
             if (keys_config_list[i].active_level == pin_state)
             {
@@ -60,7 +63,7 @@ uint8_t Get_Key_State(struct ebtn_btn *btn)
  * @param  btn: easy_button按键结构体指针
  * @param  evt: 事件类型
  */
-void ebtn_Event_Callback(struct ebtn_btn *btn, ebtn_evt_t evt)
+void ebtn_APP_Event(struct ebtn_btn *btn, ebtn_evt_t evt)
 {
     switch (btn->key_id) // 按键ID
     {

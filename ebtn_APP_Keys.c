@@ -1,9 +1,9 @@
 /** ***************************************************************************
- * @File Name: ebtn_Keys_Config.c
+ * @File Name: ebtn_APP_Keys.c
  * @brief 自定义按键参数配置文件及按键定义
  * @credit : bobwenstudy / easy_button https://github.com/bobwenstudy/easy_button
  * @Author : Sighthesia / easy_button-Application https://github.com/Sighthesia/easy_button-Application/tree/main
- * @Version : 1.0.0
+ * @Version : 1.3.0
  * @Creat Date : 2025-05-10
  * ----------------------------------------------------------------------------
  * @Modification
@@ -13,13 +13,15 @@
  *   - 组合键配置改为变参宏 `COMBO_KEYS`，支持自适应长度
  *   - 导出数组与大小常量，便于 `ebtn_APP` 自动化初始化
  *   - 注释精简与开源风格统一
+ *   - 通过包含 `ebtn_APP_HAL.h` 获取平台定义（HAL 头默认包含 `main.h`），移除对 `main.h` 的直接包含
  * @Modifi Date : 2025-09-14
  */
-#include "ebtn_Keys_Config.h"
+#include "ebtn_APP_Keys.h"
+#include "ebtn_APP_HAL.h"
 
 /** ***************************************************************************
  * @brief 定义默认按键参数结构体
- * @ref ebtn_Keys_Config.h
+ * @ref ebtn_APP_Keys.h
  */
 ebtn_btn_param_t buttons_parameters = EBTN_PARAMS_INIT(
     DEBOUNCE_TIME,            // 按下防抖超时
@@ -33,7 +35,7 @@ ebtn_btn_param_t buttons_parameters = EBTN_PARAMS_INIT(
 
 /* -------------------------------- 此处修改按键定义 -------------------------------- */
 
-// 按键ID为 ebtn_Keys_Config.h 中的枚举定义，初始化函数会为所有枚举值初始化
+// 按键ID为 ebtn_APP_Keys.h 中的枚举定义，初始化函数会为所有枚举值初始化
 
 /** ***************************************************************************
  * @brief 按键列表结构体数组，用于将按键ID与GPIO引脚以及触发电平进行绑定，
